@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+    <h2>User Profile</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Username:</dt>
+        <dd class="col-sm-9">{{ user.username }}</dd>
+
+        <dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">{{ user.email }}</dd>
+
+        <dt class="col-sm-3">First Name:</dt>
+        <dd class="col-sm-9">{{ user.first_name }}</dd>
+
+        <dt class="col-sm-3">Last Name:</dt>
+        <dd class="col-sm-9">{{ user.last_name }}</dd>
+    </dl>
+{% endblock %}

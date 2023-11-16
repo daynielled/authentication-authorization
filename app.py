@@ -35,17 +35,61 @@ def process_registration_form():
         db.session.add(user)
         db.session.commit()
 
+        session["user_id"] = user.id
+
+        flash('Registration successful! Welcome!')
+
         return redirect('/secret')
      
      else:
         return render_template('register.html', form=form)
-
-
-@app.route('/secret')
-def secret():
-    return "You made it!"
      
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        pwd = form.password.data
+
+        user = User.authenticate(username, pwd)
+
+        if user:
+          session["user_id"] = user.id  # keep logged in
+          return redirect("/secret")
+        
+        else:
+            form.username.errors = ["Incorrect username and/or password"]
+
+    return render_template("login.html", form=form)
+  
+
+
+@app.route('/users/<username>')
+def user_profile(username):
+    """Displays information about the current user"""
+
+    if "user_id" not in session:
+        flash("You must be logged in to view!")
+        return redirect("/")
+    
+    user = User.query.filter_by(username=username).first()
+    
+    if user:
+        return render_template("user_profile.html", user=user)
+    else:
+        flash('User not found', 'danger')
+        return redirect('/')
+     
+
+@app.route("/logout")
+def logout():
+    """Logs user out and redirects to homepage."""
+
+    session.pop("user_id")
+
+    return redirect("/")
 
 
 

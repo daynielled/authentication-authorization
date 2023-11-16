@@ -1,4 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, backref
 from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
@@ -17,25 +17,34 @@ class User(db.Model):
         
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, 
-                   primary_key=True, 
-                   autoincrement=True)
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
 
-    username = db.Column(db.Text(20), 
-                         nullable=False, 
-                         unique=True)
+    username = db.Column(db.Text(20),nullable=False,unique=True)
 
-    password = db.Column(db.Text, 
-                         nullable=False)
+    password = db.Column(db.Text,nullable=False)
     
-    email = db.Column(db.Text (50),
-                      nullable=False,
-                        unique=True)
-    first_name = db.Column(db.Text(30),
-                            nullable=False)
+    email = db.Column(db.Text (50),nullable=False,unique=True)
+
+    first_name = db.Column(db.Text(30),nullable=False)
     
-    last_name = db.Column(db.Text(30),
-                           nullable=False)
+    last_name = db.Column(db.Text(30),nullable=False)
     
 
+class Feedback(db.Model):
+    """Feedback"""
+
+    __tablename__ = "feedbacks"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    title = db.Column(db.String(100), nullable=False)
+
+    content = db.Column(db.Text, nullable=False)
+
+    user_username = db.Column(db.Text, db.ForeignKey('user.username'), nullable=False)
+
+    user = db.relationship('User', backref=backref('feedbacks', lazy=True))    
     
+
+         
+    db.create_all()
