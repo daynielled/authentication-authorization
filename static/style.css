@@ -1,0 +1,47 @@
+/* styles.css */
+
+body {
+    background: linear-gradient(to right, violet, indigo,);
+    background-attachment: fixed; /* Fixed background */
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .navbar {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .nav-link {
+    color: #333;
+  }
+  
+  .navbar-brand {
+    color: #333;
+  }
+  
+  .container {
+    margin-top: 50px;
+  }
+  
+  .btn-primary {
+    background-color: violet;
+    border-color: violet;
+  }
+  
+  .btn-primary:hover {
+    background-color: indigo;
+    border-color: indigo;
+  }
+  
+  .btn-secondary {
+    background-color: red;
+    border-color: red;
+  }
+  
+  .btn-secondary:hover {
+    background-color: orange;
+    border-color: orange;
+  }
+  
+  /* Add more styles as needed for different elements in your application */
+  

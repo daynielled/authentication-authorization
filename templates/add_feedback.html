@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Feedback{% endblock %}
+
+{% block content %}
+  <h2>Add Feedback</h2>
+  
+  <form method="POST">
+
+    {{ form.hidden_tag() }}
+  
+    <div class="form-group">
+      {{ form.title.label(class="form-control-label") }}
+      {{ form.title(class="form-control") }}
+      {% for error in form.title.errors %}
+        <small class="form-text text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+  
+    <div class="form-group">
+      {{ form.content.label(class="form-control-label") }}
+      {{ form.content(class="form-control") }}
+      {% for error in form.content.errors %}
+        <small class="form-text text-danger">{{ error }}</small>
+      {% endfor %}
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Add Feedback</button>
+  </form>
+  
+  <hr>
+  
+  
+  {% if feedback is not none %}
+    <a href="/users/{{ feedback.user.username }}" class="btn btn-secondary">Cancel</a>
+  {% else %}
+    <!-- Handle the case where feedback is None -->
+    <a href="/fallback-url" class="btn btn-secondary">Fallback Cancel</a>
+  {% endif %}
+
+{% endblock %}
